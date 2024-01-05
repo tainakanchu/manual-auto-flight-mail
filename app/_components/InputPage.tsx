@@ -112,20 +112,23 @@ export const InputPage: React.FC = () => {
         <ArrivalPicker />
       </section>
 
-      <div className="flex flex-col items-center justify-between p-24">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            navigator.clipboard.writeText(JSON.stringify(template, null, 2));
-          }}
-        >
-          Copy
-        </button>
-        <br />
-        <pre className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-500">
-          {JSON.stringify(template, null, 2)}
-        </pre>
-      </div>
+      <section>
+        <div className="flex flex-col items-center justify-between p-24">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => {
+              navigator.clipboard.writeText(JSON.stringify(template, null, 2));
+            }}
+          >
+            Copy
+          </button>
+          <br />
+          <h2 className="text-xl font-bold">Template</h2>
+          <pre className="border-2 border-gray-300 rounded-lg p-2 text-gray-500 overflow-x-auto">
+            {JSON.stringify(template, null, 2)}
+          </pre>
+        </div>
+      </section>
     </div>
   );
 };
