@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { AirportIATACode, airportNameMap } from "../_constant";
 import { useDatePicker } from "../_hooks";
 import { AirLineIATACode, airLineNameMap } from "../_constant/AirLineIATACode";
@@ -15,13 +15,29 @@ export const InputPage: React.FC = () => {
   const airlineName = airLineNameMap[airlineCode] ?? "Unknown Airline";
   const flightNumberCode = flightNumber.slice(2);
 
+  // 当日の昼十二時
+  const initialDate = set(new Date(), {
+    hours: 12,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  });
+
   // 出発地の情報
   const [departureIATA, setDepartureIATA] = useState<AirportIATACode>("NRT");
+
+  /**
+   * 到着地の日付を設定する関数
+   * 到着地の日付は、出発地の日付を設定した時にその値にすると便利だと思った
+   *
+   * @param date 出発地の日付
+   */
   const handleSetArrivalTime = (date: Date) => {
     setArrivalDate(date);
   };
+
   const { date: departureDate, component: DeparturePicker } = useDatePicker({
-    initialDate: new Date(),
+    initialDate,
     onChange: handleSetArrivalTime,
   });
 
@@ -31,7 +47,9 @@ export const InputPage: React.FC = () => {
     date: arrivalDate,
     setDate: setArrivalDate,
     component: ArrivalPicker,
-  } = useDatePicker({});
+  } = useDatePicker({
+    initialDate,
+  });
 
   const departureAirportName =
     airportNameMap[departureIATA] ?? "Unknown Airport";
