@@ -1947,7 +1947,7 @@ export const AirportIATACode = [
   "ZND",
   "OUZ",
   "ZRH",
-];
+] as const;
 
 export type AirportIATACode = (typeof AirportIATACode)[number];
 
