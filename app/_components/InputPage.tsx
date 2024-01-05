@@ -1,19 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { format, set } from "date-fns";
-import { AirportIATACode, airportNameMap } from "../_constant";
-import { useDatePicker } from "../_hooks";
-import { AirLineIATACode, airLineNameMap } from "../_constant/AirLineIATACode";
+import { set } from "date-fns";
+import { AirportIATACode } from "../_constant";
+import { useDatePicker, useFlightReservationJson } from "../_hooks";
 
 export const InputPage: React.FC = () => {
   // 便番号
   const [reservationNumber, setReservationNumber] = useState<string>("");
   const [flightNumber, setFlightNumber] = useState<string>("");
-
-  const airlineCode = flightNumber.slice(0, 2) as AirLineIATACode;
-  const airlineName = airLineNameMap[airlineCode] ?? "Unknown Airline";
-  const flightNumberCode = flightNumber.slice(2);
 
   // 当日の昼十二時
   const initialDate = set(new Date(), {
@@ -51,42 +46,14 @@ export const InputPage: React.FC = () => {
     initialDate,
   });
 
-  const departureAirportName =
-    airportNameMap[departureIATA] ?? "Unknown Airport";
-
-  const arrivalAirportName = airportNameMap[arrivalIATA] ?? "Unknown Airport";
-
-  const template = {
-    "@context": "http://schema.org",
-    "@type": "FlightReservation",
-    reservationNumber: reservationNumber,
-    reservationStatus: "http://schema.org/Confirmed",
-    underName: {
-      "@type": "Person",
-      name: "tainakanchu",
-    },
-    reservationFor: {
-      "@type": "Flight",
-      flightNumber: flightNumberCode,
-      airline: {
-        "@type": "Airline",
-        name: airlineName,
-        iataCode: airlineCode,
-      },
-      departureAirport: {
-        "@type": "Airport",
-        name: departureAirportName,
-        iataCode: departureIATA,
-      },
-      departureTime: format(departureDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-      arrivalAirport: {
-        "@type": "Airport",
-        name: arrivalAirportName,
-        iataCode: arrivalIATA,
-      },
-      arrivalTime: format(arrivalDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-    },
-  };
+  const jsonLd = useFlightReservationJson({
+    reservationNumber,
+    fullFlightNumber: flightNumber,
+    departureDate,
+    departureAirportIATA: departureIATA,
+    arrivalDate,
+    arrivalAirportIATA: arrivalIATA,
+  });
 
   return (
     <div>
@@ -158,7 +125,7 @@ export const InputPage: React.FC = () => {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
-              navigator.clipboard.writeText(JSON.stringify(template, null, 2));
+              navigator.clipboard.writeText(JSON.stringify(jsonLd, null, 2));
             }}
           >
             Copy
@@ -166,7 +133,7 @@ export const InputPage: React.FC = () => {
           <br />
           <h2 className="text-xl font-bold">Template</h2>
           <pre className="border-2 border-gray-300 rounded-lg p-2 text-gray-500 overflow-x-auto">
-            {JSON.stringify(template, null, 2)}
+            {JSON.stringify(jsonLd, null, 2)}
           </pre>
         </div>
       </section>
