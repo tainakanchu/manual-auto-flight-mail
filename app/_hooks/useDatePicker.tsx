@@ -12,7 +12,10 @@ import "react-datepicker/dist/react-datepicker.css";
  * - setDate: 日付を設定する関数
  * - component: 日付を選択するためのコンポーネント
  */
-export const useDatePicker = (initialDate: Date = new Date()) => {
+export const useDatePicker = (
+  initialDate: Date = new Date(),
+  onChange: (date: Date) => void = () => {}
+) => {
   const [date, setDate] = useState(initialDate);
 
   const component = () => (
@@ -22,11 +25,14 @@ export const useDatePicker = (initialDate: Date = new Date()) => {
       locale="ja"
       selected={date}
       onChange={(d) => {
-        if (d) setDate(d);
+        if (d) {
+          setDate(d);
+          onChange(d);
+        }
       }}
       showTimeSelect
       timeIntervals={5}
-      timeCaption="time"
+      timeFormat="HH:mm"
     />
   );
 

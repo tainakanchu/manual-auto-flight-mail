@@ -17,11 +17,21 @@ export const InputPage: React.FC = () => {
 
   // 出発地の情報
   const [departureIATA, setDepartureIATA] = useState<AirportIATACode>("NRT");
-  const { date: departureDate, component: DeparturePicker } = useDatePicker();
+  const handleSetArrivalTime = (date: Date) => {
+    setArrivalDate(date);
+  };
+  const { date: departureDate, component: DeparturePicker } = useDatePicker(
+    new Date(),
+    handleSetArrivalTime
+  );
 
   // 到着地の情報
   const [arrivalIATA, setArrivalIATA] = useState<AirportIATACode>("CTS");
-  const { date: arrivalDate, component: ArrivalPicker } = useDatePicker();
+  const {
+    date: arrivalDate,
+    setDate: setArrivalDate,
+    component: ArrivalPicker,
+  } = useDatePicker(new Date());
 
   const departureAirportName =
     airportNameMap[departureIATA] ?? "Unknown Airport";
