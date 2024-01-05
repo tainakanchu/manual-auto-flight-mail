@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { format } from "date-fns";
 import { AirportIATACode, airportNameMap } from "../AirportIATACode";
+import { useDatePicker } from "../_hooks";
 
 export const InputPage: React.FC = () => {
   const [departureIATA, setDepartureIATA] = useState<AirportIATACode>("NRT");
+
+  const { date: departureDate, component: DeparturePicker } = useDatePicker();
+  const { date: arrivalDate, component: ArrivalPicker } = useDatePicker();
 
   const [arrivalIATA, setArrivalIATA] = useState<AirportIATACode>("CTS");
 
@@ -34,41 +39,54 @@ export const InputPage: React.FC = () => {
         name: departureAirportName,
         iataCode: departureIATA,
       },
-      departureTime: "2023-10-03T08:20:00+02:00",
+      departureTime: format(departureDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       arrivalAirport: {
         "@type": "Airport",
         name: arrivalAirportName,
         iataCode: arrivalIATA,
       },
-      arrivalTime: "2023-10-03T10:15:00+02:00",
+      arrivalTime: format(arrivalDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
     },
   };
 
   return (
     <div>
       {/* 出発地の空港 */}
-      <input
-        placeholder="Where are you leaving from?"
-        className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
-        value={departureIATA}
-        onChange={(e) => {
-          e.target.value = e.target.value.toUpperCase();
-          setDepartureIATA(e.target.value as AirportIATACode);
-        }}
-      />
+      <section>
+        <h2 className="text-xl font-bold">
+          <label htmlFor="departure">Departure</label>
+        </h2>
+        <input
+          placeholder="Where are you leaving from?"
+          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          value={departureIATA}
+          onChange={(e) => {
+            e.target.value = e.target.value.toUpperCase();
+            setDepartureIATA(e.target.value as AirportIATACode);
+          }}
+        />
+
+        <DeparturePicker />
+      </section>
 
       <br />
 
       {/* 到着地の空港 */}
-      <input
-        placeholder="Where are you going?"
-        className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
-        value={arrivalIATA}
-        onChange={(e) => {
-          e.target.value = e.target.value.toUpperCase();
-          setArrivalIATA(e.target.value as AirportIATACode);
-        }}
-      />
+      <section>
+        <h2 className="text-xl font-bold">
+          <label htmlFor="arrival">Arrival</label>
+        </h2>
+        <input
+          placeholder="Where are you going?"
+          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          value={arrivalIATA}
+          onChange={(e) => {
+            e.target.value = e.target.value.toUpperCase();
+            setArrivalIATA(e.target.value as AirportIATACode);
+          }}
+        />
+        <ArrivalPicker />
+      </section>
 
       <div className="flex flex-col items-center justify-between p-24">
         <button
