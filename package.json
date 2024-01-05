@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev"
+    "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check"
   },
   "devDependencies": {
     "eslint": "8.49.0",
+    "turbo": "^1.11.3",
     "typescript": "5.3.3"
   },
   "volta": {
