@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { AirportIATACode, airportNameMap } from "../AirportIATACode";
+import { AirportIATACode, airportNameMap } from "../_constant";
 import { useDatePicker } from "../_hooks";
 
 export const InputPage: React.FC = () => {
