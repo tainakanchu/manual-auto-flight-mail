@@ -20,10 +20,10 @@ export const InputPage: React.FC = () => {
   const handleSetArrivalTime = (date: Date) => {
     setArrivalDate(date);
   };
-  const { date: departureDate, component: DeparturePicker } = useDatePicker(
-    new Date(),
-    handleSetArrivalTime
-  );
+  const { date: departureDate, component: DeparturePicker } = useDatePicker({
+    initialDate: new Date(),
+    onChange: handleSetArrivalTime,
+  });
 
   // 到着地の情報
   const [arrivalIATA, setArrivalIATA] = useState<AirportIATACode>("CTS");
@@ -31,7 +31,7 @@ export const InputPage: React.FC = () => {
     date: arrivalDate,
     setDate: setArrivalDate,
     component: ArrivalPicker,
-  } = useDatePicker(new Date());
+  } = useDatePicker({});
 
   const departureAirportName =
     airportNameMap[departureIATA] ?? "Unknown Airport";
