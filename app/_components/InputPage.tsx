@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { AirportIATACode, airportNameMap } from "./AirportIATACode";
+import { AirportIATACode, airportNameMap } from "../AirportIATACode";
 
-export const Input: React.FC = () => {
+export const InputPage: React.FC = () => {
   const [departureIATA, setDepartureIATA] = useState<AirportIATACode>("NRT");
 
   const [arrivalIATA, setArrivalIATA] = useState<AirportIATACode>("CTS");
