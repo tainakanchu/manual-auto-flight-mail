@@ -8,6 +8,7 @@ import { AirLineIATACode, airLineNameMap } from "../_constant/AirLineIATACode";
 
 export const InputPage: React.FC = () => {
   // 便番号
+  const [reservationNumber, setReservationNumber] = useState<string>("");
   const [flightNumber, setFlightNumber] = useState<string>("");
 
   const airlineCode = flightNumber.slice(0, 2) as AirLineIATACode;
@@ -30,6 +31,7 @@ export const InputPage: React.FC = () => {
   const template = {
     "@context": "http://schema.org",
     "@type": "FlightReservation",
+    reservationNumber: reservationNumber,
     reservationStatus: "http://schema.org/Confirmed",
     underName: {
       "@type": "Person",
@@ -63,7 +65,7 @@ export const InputPage: React.FC = () => {
       {/* 便情報 */}
       <section>
         <h2 className="text-xl font-bold">
-          <label htmlFor="flightNumber">Flight Number</label>
+          <label htmlFor="flightNumber">General Flight Info</label>
         </h2>
         <input
           placeholder="What's your flight number?"
@@ -72,6 +74,17 @@ export const InputPage: React.FC = () => {
           onChange={(e) => {
             const value = e.target.value.toUpperCase();
             setFlightNumber(value);
+          }}
+        />
+
+        {/* 予約番号 */}
+        <input
+          placeholder="What's your reservation number?"
+          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          value={reservationNumber}
+          onChange={(e) => {
+            const value = e.target.value.toUpperCase();
+            setReservationNumber(value);
           }}
         />
       </section>
