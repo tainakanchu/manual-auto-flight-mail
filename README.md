@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Manual Auto Flight Mail
+フライトのメールを自動でカレンダーに登録する作業を手動で実施することを補助するツール
 
 ## Getting Started
 
