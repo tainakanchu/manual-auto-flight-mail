@@ -4,14 +4,23 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { AirportIATACode, airportNameMap } from "../_constant";
 import { useDatePicker } from "../_hooks";
+import { AirLineIATACode, airLineNameMap } from "../_constant/AirLineIATACode";
 
 export const InputPage: React.FC = () => {
+  // 便番号
+  const [flightNumber, setFlightNumber] = useState<string>("");
+
+  const airlineCode = flightNumber.slice(0, 2) as AirLineIATACode;
+  const airlineName = airLineNameMap[airlineCode] ?? "Unknown Airline";
+  const flightNumberCode = flightNumber.slice(2);
+
+  // 出発地の情報
   const [departureIATA, setDepartureIATA] = useState<AirportIATACode>("NRT");
-
   const { date: departureDate, component: DeparturePicker } = useDatePicker();
-  const { date: arrivalDate, component: ArrivalPicker } = useDatePicker();
 
+  // 到着地の情報
   const [arrivalIATA, setArrivalIATA] = useState<AirportIATACode>("CTS");
+  const { date: arrivalDate, component: ArrivalPicker } = useDatePicker();
 
   const departureAirportName =
     airportNameMap[departureIATA] ?? "Unknown Airport";
@@ -28,11 +37,11 @@ export const InputPage: React.FC = () => {
     },
     reservationFor: {
       "@type": "Flight",
-      flightNumber: "4743",
+      flightNumber: flightNumberCode,
       airline: {
         "@type": "Airline",
-        name: "SAS Scandinavian Airlines",
-        iataCode: "SK",
+        name: airlineName,
+        iataCode: airlineCode,
       },
       departureAirport: {
         "@type": "Airport",
@@ -51,6 +60,21 @@ export const InputPage: React.FC = () => {
 
   return (
     <div>
+      {/* 便情報 */}
+      <section>
+        <h2 className="text-xl font-bold">
+          <label htmlFor="flightNumber">Flight Number</label>
+        </h2>
+        <input
+          placeholder="What's your flight number?"
+          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          value={flightNumber}
+          onChange={(e) => {
+            const value = e.target.value.toUpperCase();
+            setFlightNumber(value);
+          }}
+        />
+      </section>
       {/* 出発地の空港 */}
       <section>
         <h2 className="text-xl font-bold">
