@@ -23,6 +23,9 @@ importers:
       date-fns:
         specifier: 3.0.6
         version: 3.0.6
+      manual-auto-flight-mail-interface:
+        specifier: '*'
+        version: link:../manual-auto-flight-mail-interface
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -60,6 +63,8 @@ importers:
       postcss:
         specifier: 8.4.29
         version: 8.4.29
+
+  packages/manual-auto-flight-mail-interface: {}
 
 packages:
 
