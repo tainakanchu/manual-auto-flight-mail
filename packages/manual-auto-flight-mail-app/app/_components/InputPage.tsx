@@ -1,8 +1,8 @@
 "use client";
 
+import { AirportIATACode } from "manual-auto-flight-mail-interface";
 import { useState } from "react";
 import { set } from "date-fns";
-import { AirportIATACode } from "../_constant";
 import { useDatePicker, useFlightReservationJson } from "../_hooks";
 
 export const InputPage: React.FC = () => {
