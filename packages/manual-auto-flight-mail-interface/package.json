@@ -5,6 +5,12 @@
   "main": "src/index.ts",
   "scripts": {
     "lint": "eslint ./src",
-    "type-check": "npx tsc --noEmit"
+    "type-check": "npx tsc --noEmit",
+    "build": "ts-node ./scripts/parse.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "csv-parser": "^3.0.0",
+    "ts-node": "^10.9.2"
   }
 }

@@ -1,37 +1,59 @@
-import {
-  AirportIATACode,
-  airportNameMap,
-} from "manual-auto-flight-mail-interface";
+import { useState, useEffect } from "react";
+
+const api = "/api/airport-name";
 
 export const useAirport = (
-  airportIATACode: string,
+  airportIATACode: string
 ):
   | {
-      airportCode: AirportIATACode;
       airportName: string;
+      isLoading: boolean;
     }
   | {
-      airportCode: string;
       airportName: "Unknown Airport";
+      isLoading: false;
     } => {
-  const isValidAsAirportIATACode = AirportIATACode.includes(
-    airportIATACode as AirportIATACode,
-  );
-  // airLineIATACode が AirLineIATACode に含まれているかどうかを確認する
-  if (!isValidAsAirportIATACode) {
-    return {
-      airportCode: airportIATACode,
-      airportName: "Unknown Airport",
-    };
-  }
+  const [airportInfo, setAirportInfo] = useState<{
+    airportName: string;
+    isLoading: boolean;
+  }>({
+    airportName: "Unknown Airport",
+    isLoading: false,
+  });
 
-  // 有効である時点で AirportIATACode であることが確定している
-  const iataCode = airportIATACode as AirportIATACode;
+  // 桁数が3桁で大文字の場合は、 API経由で取得する
+  useEffect(() => {
+    // IATA 空港コードは必ず3桁の大文字である。そうでない場合は unknown とする
+    if (airportIATACode.length !== 3) {
+      setAirportInfo({
+        airportName: "Unknown Airport",
+        isLoading: false,
+      });
+      return;
+    }
 
-  const airportName = airportNameMap[iataCode];
+    const url = `${api}?iata=${airportIATACode}`;
 
-  return {
-    airportCode: iataCode,
-    airportName: airportName,
-  };
+    setAirportInfo({
+      airportName: "loading...",
+      isLoading: true,
+    });
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setAirportInfo({
+          airportName: json.airportName,
+          isLoading: false,
+        });
+      })
+      .catch((e) => {
+        setAirportInfo({
+          airportName: "Unknown Airport",
+          isLoading: false,
+        });
+      });
+  }, [airportIATACode]);
+
+  return airportInfo;
 };
