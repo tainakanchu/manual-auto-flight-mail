@@ -1,0 +1,19 @@
+{
+  "name": "manual-auto-flight-mail-sender",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "lint": "eslint --ext .ts src",
+    "prepare": "node ./scripts/create_clasp_json.js",
+    "push": "pnpm prepare && clasp push"
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.78",
+    "dotenv": "^16.4.5"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  }
+}
