@@ -18,7 +18,9 @@ export async function GET(req: NextRequest) {
 
   const airportName = airportNameMap[iataCode];
 
-  return new NextResponse(airportName, { status: 200 });
+  const body = JSON.stringify({ airportName });
+
+  return new NextResponse(body, { status: 200 });
 }
 
 const isAirportIATACode = (iataCode: string): iataCode is AirportIATACode => {
