@@ -1,0 +1,10 @@
+{
+  "name": "manual-auto-flight-mail-interface",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "lint": "eslint ./src",
+    "type-check": "npx tsc --noEmit"
+  }
+}

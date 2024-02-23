@@ -1,4 +1,7 @@
-import { AirLineIATACode, airLineNameMap } from "../_constant/AirLineIATACode";
+import {
+  AirLineIATACode,
+  airLineNameMap,
+} from "manual-auto-flight-mail-interface";
 
 /**
  * AirLineIATACode と AirLineName を返す

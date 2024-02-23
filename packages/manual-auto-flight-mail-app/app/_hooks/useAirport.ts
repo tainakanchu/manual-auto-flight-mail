@@ -1,4 +1,7 @@
-import { AirportIATACode, airportNameMap } from "../_constant";
+import {
+  AirportIATACode,
+  airportNameMap,
+} from "manual-auto-flight-mail-interface";
 
 export const useAirport = (
   airportIATACode: string
