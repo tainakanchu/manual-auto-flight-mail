@@ -1,38 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
+    <!-- paste your flight reservation json-ld below -->
     <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "FlightReservation",
-  "reservationNumber": "3158",
-  "reservationStatus": "http://schema.org/Confirmed",
-  "underName": {
-    "@type": "Person",
-    "name": "tainakanchu"
-  },
-  "reservationFor": {
-    "@type": "Flight",
-    "flightNumber": "038",
-    "airline": {
-      "@type": "Airline",
-      "name": "SOLASEED AIR INC.",
-      "iataCode": "6J"
-    },
-    "departureAirport": {
-      "@type": "Airport",
-      "name": "Nagasaki",
-      "iataCode": "NGS"
-    },
-    "departureTime": "2024-01-20T21:10:00+09:00",
-    "arrivalAirport": {
-      "@type": "Airport",
-      "name": "Tokyo - Haneda",
-      "iataCode": "HND"
-    },
-    "arrivalTime": "2024-01-20T22:45:00+09:00"
-  }
-}
+      {
+        "@context": "http://schema.org",
+        "@type": "FlightReservation",
+        "reservationNumber": "XXXXXX",
+        "reservationStatus": "http://schema.org/Confirmed",
+        "underName": {
+          "@type": "Person",
+          "name": "tainakanchu"
+        },
+        "reservationFor": {
+          "@type": "Flight",
+          "flightNumber": "531",
+          "airline": {
+            "@type": "Airline",
+            "name": "JAPAN AIRLINES CO. ,LTD",
+            "iataCode": "JL"
+          },
+          "departureAirport": {
+            "@type": "Airport",
+            "name": "Tokyo - Haneda",
+            "iataCode": "HND"
+          },
+          "departureTime": "2024-02-24T11:20:46+09:00",
+          "arrivalAirport": {
+            "@type": "Airport",
+            "name": "Sapporo - New Chitose Airport",
+            "iataCode": "CTS"
+          },
+          "arrivalTime": "2024-02-24T12:55:46+09:00"
+        }
+      }
     </script>
   </head>
   <body>
