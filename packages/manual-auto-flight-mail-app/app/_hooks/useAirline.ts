@@ -7,7 +7,7 @@ import {
  * AirLineIATACode と AirLineName を返す
  */
 export const useAirline = (
-  airlineIATACode: string
+  airlineIATACode: string,
 ):
   | {
       airlineCode: AirLineIATACode;
@@ -18,7 +18,7 @@ export const useAirline = (
       airlineName: "Unknown Airline";
     } => {
   const isValidAsAirlineIATACode = AirLineIATACode.includes(
-    airlineIATACode as AirLineIATACode
+    airlineIATACode as AirLineIATACode,
   );
   // airLineIATACode が AirLineIATACode に含まれているかどうかを確認する
   if (!isValidAsAirlineIATACode) {

@@ -11,7 +11,7 @@ import { isObject, valueFromAny } from "../utils";
  * @returns AirportInfo | false
  */
 export const validateAirportInfo = (
-  airportInfo: unknown
+  airportInfo: unknown,
 ): AirportInfo | false => {
   if (!isObject(airportInfo)) {
     return false;

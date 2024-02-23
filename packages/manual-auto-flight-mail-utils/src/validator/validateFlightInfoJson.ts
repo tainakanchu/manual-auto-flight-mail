@@ -4,7 +4,7 @@ import { isObject, valueFromAny } from "../utils";
 import { validateReservationFor } from "./reservationFor";
 
 export const validateFlightInfoJson = (
-  json: unknown
+  json: unknown,
 ): FlightInfoJson | false => {
   if (!isObject(json)) {
     return false;
@@ -26,7 +26,7 @@ export const validateFlightInfoJson = (
   const isPersonInfoValid = validatePersonInfo(valueFromAny(json, "underName"));
 
   const reservationForInfo = validateReservationFor(
-    valueFromAny(json, "reservationFor")
+    valueFromAny(json, "reservationFor"),
   );
 
   // 一つでもバリデーションに引っかかったら false を返す

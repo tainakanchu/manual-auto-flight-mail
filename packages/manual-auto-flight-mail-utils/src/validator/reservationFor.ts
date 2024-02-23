@@ -8,7 +8,7 @@ import { validateAirportInfo } from "./airport";
  *
  */
 export const validateReservationFor = (
-  reservationFor: unknown
+  reservationFor: unknown,
 ): ReservationFor | false => {
   if (!isObject(reservationFor)) {
     return false;
@@ -33,10 +33,10 @@ export const validateReservationFor = (
 
   // airport チェック
   const departureAirport = validateAirportInfo(
-    valueFromAny(reservationFor, "departureAirport")
+    valueFromAny(reservationFor, "departureAirport"),
   );
   const arrivalAirport = validateAirportInfo(
-    valueFromAny(reservationFor, "arrivalAirport")
+    valueFromAny(reservationFor, "arrivalAirport"),
   );
 
   if (!departureAirport || !arrivalAirport) {
@@ -45,10 +45,10 @@ export const validateReservationFor = (
 
   // time チェック
   const departureTime = validateDateTime(
-    valueFromAny(reservationFor, "departureTime")
+    valueFromAny(reservationFor, "departureTime"),
   );
   const arrivalTime = validateDateTime(
-    valueFromAny(reservationFor, "arrivalTime")
+    valueFromAny(reservationFor, "arrivalTime"),
   );
 
   if (!departureTime || !arrivalTime) {
