@@ -4,7 +4,7 @@ import {
 } from "manual-auto-flight-mail-interface";
 
 export const useAirport = (
-  airportIATACode: string
+  airportIATACode: string,
 ):
   | {
       airportCode: AirportIATACode;
@@ -15,7 +15,7 @@ export const useAirport = (
       airportName: "Unknown Airport";
     } => {
   const isValidAsAirportIATACode = AirportIATACode.includes(
-    airportIATACode as AirportIATACode
+    airportIATACode as AirportIATACode,
   );
   // airLineIATACode が AirLineIATACode に含まれているかどうかを確認する
   if (!isValidAsAirportIATACode) {

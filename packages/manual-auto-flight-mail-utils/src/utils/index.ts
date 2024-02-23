@@ -1,6 +1,6 @@
 export const valueFromAny = (
   source: unknown,
-  property: string
+  property: string,
 ): object | string | null => {
   if (!isObject(source)) {
     return null;

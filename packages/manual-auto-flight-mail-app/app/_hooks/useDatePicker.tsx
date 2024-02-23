@@ -30,7 +30,7 @@ export const useDatePicker = ({
       setDate(d);
       onChange(d);
     },
-    [onChange]
+    [onChange],
   );
 
   const component = useCallback(
@@ -69,7 +69,7 @@ export const useDatePicker = ({
         showTwoColumnMonthYearPicker
       />
     ),
-    [date, handleSetDate]
+    [date, handleSetDate],
   );
 
   return {
