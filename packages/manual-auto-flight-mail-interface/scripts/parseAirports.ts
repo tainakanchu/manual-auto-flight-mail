@@ -16,15 +16,26 @@ fs.createReadStream("./assets/airports.csv")
   })
   .on("end", () => {
     console.log("CSV file successfully processed");
-    console.log("💖iataCodes", iataCodes);
+    const sortedIataCodes = iataCodes.sort((a, b) =>
+      a.localeCompare(b, "en", { sensitivity: "base" })
+    );
+    const sortedAirportMap = Object.keys(airportNameMap)
+      .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
+      .reduce(
+        (acc, key) => {
+          acc[key] = airportNameMap[key];
+          return acc;
+        },
+        {} as Record<string, string>
+      );
 
     fs.writeFileSync(
       "./src/IATA/AirportIATACode.ts",
-      `export const AirportIATACode = ${JSON.stringify(iataCodes, null, 2)} as const
+      `export const AirportIATACode = ${JSON.stringify(sortedIataCodes, null, 2)} as const
 
 export type AirportIATACode = (typeof AirportIATACode)[number];
 
-export const airportNameMap = ${JSON.stringify(airportNameMap, null, 2)} as const;
+export const airportNameMap: Record<AirportIATACode, string> = ${JSON.stringify(sortedAirportMap, null, 2)} as const;
 `
     );
   });
