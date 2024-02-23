@@ -26,7 +26,7 @@ Here is an example of the JSON-LD format:
   "underName": {
     "@type": "Person",
     "name": "tainakanchu"
-  },****
+  },
   "reservationFor": {
     "@type": "Flight",
     "flightNumber": "531",
