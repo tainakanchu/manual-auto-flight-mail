@@ -5,8 +5,11 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev",
     "build": "turbo build",
-    "lint": "turbo lint",
-    "type-check": "turbo type-check"
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint:eslint": "turbo lint",
+    "lint:prettier": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,html}'",
+    "type-check": "turbo type-check",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "devDependencies": {
     "eslint": "8.49.0",
