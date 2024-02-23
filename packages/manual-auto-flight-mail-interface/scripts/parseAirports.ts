@@ -8,7 +8,6 @@ const airportNameMap: Record<string, string> = {};
 fs.createReadStream("./assets/airports.csv")
   .pipe(csvParser({ separator: "," }))
   .on("data", (data) => {
-    // console.log(data.iata_code);
     if (data.iata_code) {
       iataCodes.push(data.iata_code);
       airportNameMap[data.iata_code] = data.name;
