@@ -1,37 +1,62 @@
-import {
-  AirLineIATACode,
-  airLineNameMap,
-} from "manual-auto-flight-mail-interface";
+import { useEffect, useState } from "react";
+
+const api = "/api/airline-name";
 
 /**
  * AirLineIATACode と AirLineName を返す
  */
 export const useAirline = (
-  airlineIATACode: string,
+  airlineIATACode: string
 ):
   | {
-      airlineCode: AirLineIATACode;
       airlineName: string;
+      isLoading: boolean;
     }
   | {
-      airlineCode: string;
       airlineName: "Unknown Airline";
+      isLoading: false;
     } => {
-  const isValidAsAirlineIATACode = AirLineIATACode.includes(
-    airlineIATACode as AirLineIATACode,
-  );
-  // airLineIATACode が AirLineIATACode に含まれているかどうかを確認する
-  if (!isValidAsAirlineIATACode) {
-    return {
-      airlineCode: airlineIATACode,
-      airlineName: "Unknown Airline",
-    };
-  }
+  const [airlineInfo, setAirlineInfo] = useState<{
+    airlineName: string;
+    isLoading: boolean;
+  }>({
+    airlineName: "Unknown Airline",
+    isLoading: false,
+  });
 
-  const airlineName = airLineNameMap[airlineIATACode as AirLineIATACode];
+  // 桁数が2桁で大文字の場合は、 API経由で取得する
+  useEffect(() => {
+    // IATA 航空会社は必ず2桁の大文字である。そうでない場合は unknown とする
+    if (airlineIATACode.length !== 2) {
+      setAirlineInfo({
+        airlineName: "Unknown Airline",
+        isLoading: false,
+      });
+      return;
+    }
 
-  return {
-    airlineCode: airlineIATACode as AirLineIATACode,
-    airlineName: airlineName,
-  };
+    const url = `${api}?iata=${airlineIATACode}`;
+
+    setAirlineInfo({
+      airlineName: "loading...",
+      isLoading: true,
+    });
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        setAirlineInfo({
+          airlineName: json.airlineName,
+          isLoading: false,
+        });
+      })
+      .catch((e) => {
+        setAirlineInfo({
+          airlineName: "Unknown Airline",
+          isLoading: false,
+        });
+      });
+  }, [airlineIATACode]);
+
+  return airlineInfo;
 };
