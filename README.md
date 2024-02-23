@@ -1,4 +1,5 @@
 # Manual Auto Flight Mail
+
 フライトのメールを自動でカレンダーに登録する作業を手動で実施することを補助するツール
 
 ## Getting Started
