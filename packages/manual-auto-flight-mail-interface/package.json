@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "type-check": "npx tsc --noEmit",
-    "build": "ts-node ./scripts/parseAirports.ts"
+    "build": "ts-node ./scripts/parse.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.20",
