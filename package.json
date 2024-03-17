@@ -1,6 +1,6 @@
 {
   "name": "manual-auto-flight-mail",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev",
