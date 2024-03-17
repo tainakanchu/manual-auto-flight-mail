@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const api = "/api/airport-name";
 
 export const useAirport = (
-  airportIATACode: string
+  airportIATACode: string,
 ):
   | {
       airportName: string;

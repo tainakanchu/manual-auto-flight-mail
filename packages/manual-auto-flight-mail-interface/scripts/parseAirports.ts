@@ -17,7 +17,7 @@ export const parseAirports = () => {
     .on("end", () => {
       console.log("CSV file successfully processed");
       const sortedIataCodes = iataCodes.sort((a, b) =>
-        a.localeCompare(b, "en", { sensitivity: "base" })
+        a.localeCompare(b, "en", { sensitivity: "base" }),
       );
       const sortedAirportMap = Object.keys(airportNameMap)
         .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
@@ -26,7 +26,7 @@ export const parseAirports = () => {
             acc[key] = airportNameMap[key];
             return acc;
           },
-          {} as Record<string, string>
+          {} as Record<string, string>,
         );
 
       fs.writeFileSync(
@@ -36,7 +36,7 @@ export const parseAirports = () => {
 export type AirportIATACode = (typeof AirportIATACode)[number];
 
 export const airportNameMap: Record<AirportIATACode, string> = ${JSON.stringify(sortedAirportMap, null, 2)} as const;
-`
+`,
       );
     });
 };

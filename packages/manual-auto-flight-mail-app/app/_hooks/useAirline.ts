@@ -6,7 +6,7 @@ const api = "/api/airline-name";
  * AirLineIATACode と AirLineName を返す
  */
 export const useAirline = (
-  airlineIATACode: string
+  airlineIATACode: string,
 ):
   | {
       airlineName: string;
