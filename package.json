@@ -9,7 +9,7 @@
     "lint:eslint": "turbo lint",
     "lint:prettier": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,html}'",
     "type-check": "turbo type-check",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md}'"
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,html}'"
   },
   "devDependencies": {
     "eslint": "8.49.0",

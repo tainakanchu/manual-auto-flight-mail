@@ -8,7 +8,7 @@ export const parseAirlines = () => {
 
   fs.createReadStream(
     // http://www.lsv.fr/~sirangel/teaching/dataset/index.html
-    "./assets/airlines.csv"
+    "./assets/airlines.csv",
   )
     .pipe(csvParser({ separator: "," }))
     .on("data", (data) => {
@@ -20,7 +20,7 @@ export const parseAirlines = () => {
     .on("end", () => {
       console.log("CSV file successfully processed");
       const sortedIataCodes = Array.from(new Set(iataCodes)).sort((a, b) =>
-        a.localeCompare(b, "en", { sensitivity: "base" })
+        a.localeCompare(b, "en", { sensitivity: "base" }),
       );
       const sortedAirLineMap = Object.keys(airLineNameMap)
         .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }))
@@ -29,7 +29,7 @@ export const parseAirlines = () => {
             acc[key] = airLineNameMap[key];
             return acc;
           },
-          {} as Record<string, string>
+          {} as Record<string, string>,
         );
 
       fs.writeFileSync(
@@ -39,7 +39,7 @@ export const parseAirlines = () => {
         export type AirLineIATACode = (typeof AirLineIATACode)[number];
         
         export const airLineNameMap: Record<AirLineIATACode, string> = ${JSON.stringify(sortedAirLineMap, null, 2)} as const;
-        `
+        `,
       );
     });
 };
