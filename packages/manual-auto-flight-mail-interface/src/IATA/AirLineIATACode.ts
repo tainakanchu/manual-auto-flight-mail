@@ -1,3 +1,6 @@
+/**
+ * IATA航空会社コード
+ */
 export const AirLineIATACode = [
   "04",
   "0A",
@@ -914,8 +917,14 @@ export const AirLineIATACode = [
   "ZY",
 ] as const;
 
+/**
+ * IATA航空会社コード
+ */
 export type AirLineIATACode = (typeof AirLineIATACode)[number];
 
+/**
+ * IATA航空会社コードと航空会社名のマップ
+ */
 export const airLineNameMap: Record<AirLineIATACode, string> = {
   "20": "Air Salone",
   "04": "Antrak Air",

@@ -1,6 +1,6 @@
 {
   "name": "manual-auto-flight-mail",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev",
@@ -9,7 +9,7 @@
     "lint:eslint": "turbo lint",
     "lint:prettier": "prettier --check '**/*.{ts,tsx,js,jsx,json,md,html}'",
     "type-check": "turbo type-check",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md}'"
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,html}'"
   },
   "devDependencies": {
     "eslint": "8.49.0",

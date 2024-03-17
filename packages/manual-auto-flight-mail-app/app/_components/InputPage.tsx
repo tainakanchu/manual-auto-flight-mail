@@ -1,9 +1,12 @@
 "use client";
 
-import { AirportIATACode } from "manual-auto-flight-mail-interface";
-import { useState } from "react";
-import { set } from "date-fns";
+import React, { useState } from "react";
+import { AirportIATACode, TimeZone } from "manual-auto-flight-mail-interface";
+import { format, set } from "date-fns";
 import { useDatePicker, useFlightReservationJson } from "../_hooks";
+import { useTimeZonePicker } from "../_hooks/useTimeZonePicker";
+
+const currentTimeZone = format(new Date(), "xxx") as TimeZone;
 
 export const InputPage: React.FC = () => {
   // 便番号
@@ -46,13 +49,31 @@ export const InputPage: React.FC = () => {
     initialDate,
   });
 
+  /**
+   * 出発地のタイムゾーン
+   */
+  const {
+    TimeZonePicker: DepartureTimeZonePicker,
+    timeZone: departureTimeZone,
+  } = useTimeZonePicker({
+    initialTimeZone: currentTimeZone,
+  });
+
+  /**
+   * 到着地のタイムゾーン
+   */
+  const { TimeZonePicker: ArrivalTimeZonePicker, timeZone: arrivalTimeZone } =
+    useTimeZonePicker({ initialTimeZone: currentTimeZone });
+
   const jsonLd = useFlightReservationJson({
     reservationNumber,
     fullFlightNumber: flightNumber,
     departureDate,
     departureAirportIATA: departureIATA,
+    departureTimeZone,
     arrivalDate,
     arrivalAirportIATA: arrivalIATA,
+    arrivalTimeZone,
   });
 
   return (
@@ -64,7 +85,7 @@ export const InputPage: React.FC = () => {
         </h2>
         <input
           placeholder="What's your flight number?"
-          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          className="border-2 border-gray-300 rounded-lg p-2 text-gray-900"
           value={flightNumber}
           onChange={(e) => {
             const value = e.target.value.toUpperCase();
@@ -75,7 +96,7 @@ export const InputPage: React.FC = () => {
         {/* 予約番号 */}
         <input
           placeholder="What's your reservation number?"
-          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          className="border-2 border-gray-300 rounded-lg p-2 text-gray-900"
           value={reservationNumber}
           onChange={(e) => {
             const value = e.target.value.toUpperCase();
@@ -90,15 +111,15 @@ export const InputPage: React.FC = () => {
         </h2>
         <input
           placeholder="Where are you leaving from?"
-          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          className="border-2 border-gray-300 rounded-lg p-2 text-gray-900"
           value={departureIATA}
           onChange={(e) => {
             e.target.value = e.target.value.toUpperCase();
             setDepartureIATA(e.target.value as AirportIATACode);
           }}
         />
-
         <DeparturePicker />
+        <DepartureTimeZonePicker />
       </section>
 
       <br />
@@ -110,7 +131,7 @@ export const InputPage: React.FC = () => {
         </h2>
         <input
           placeholder="Where are you going?"
-          className="border-2 border-gray-300 rounded-lg p-2 w-96 text-gray-900"
+          className="border-2 border-gray-300 rounded-lg p-2 text-gray-900"
           value={arrivalIATA}
           onChange={(e) => {
             e.target.value = e.target.value.toUpperCase();
@@ -118,6 +139,7 @@ export const InputPage: React.FC = () => {
           }}
         />
         <ArrivalPicker />
+        <ArrivalTimeZonePicker />
       </section>
 
       <section>
