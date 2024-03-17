@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useAirline } from "./useAirline";
 import { useAirport } from "./useAirport";
+import { TimeZone } from "manual-auto-flight-mail-interface";
 
 /**
  * フライト予約情報を JSON-LD 形式で返す
@@ -9,9 +10,11 @@ export const useFlightReservationJson = ({
   reservationNumber,
   fullFlightNumber,
   departureDate,
+  departureTimeZone,
   departureAirportIATA: departureIATA,
   arrivalDate,
   arrivalAirportIATA: arrivalIATA,
+  arrivalTimeZone,
 }: {
   /**
    * 予約番号
@@ -30,6 +33,10 @@ export const useFlightReservationJson = ({
    */
   departureDate: Date;
   /**
+   * 出発地のタイムゾーン
+   */
+  departureTimeZone: TimeZone;
+  /**
    * 出発空港
    *
    * @example CTS
@@ -45,6 +52,10 @@ export const useFlightReservationJson = ({
    * @example HND
    */
   arrivalAirportIATA: string;
+  /**
+   * 到着地のタイムゾーン
+   */
+  arrivalTimeZone: TimeZone;
 }) => {
   // NH52 のような航空会社コード+フライト番号のフォーマットを分割する
   // 現状は 2桁の IATA コードのみを想定して決め打ちでスライスしてる
@@ -77,13 +88,13 @@ export const useFlightReservationJson = ({
         name: departureAirportName,
         iataCode: departureIATA,
       },
-      departureTime: format(departureDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      departureTime: `${format(departureDate, "yyyy-MM-dd'T'HH:mm:ss")}${departureTimeZone}`,
       arrivalAirport: {
         "@type": "Airport",
         name: arrivalAirportName,
         iataCode: arrivalIATA,
       },
-      arrivalTime: format(arrivalDate, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      arrivalTime: `${format(arrivalDate, "yyyy-MM-dd'T'HH:mm:ss")}${arrivalTimeZone}`,
     },
   };
 

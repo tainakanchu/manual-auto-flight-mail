@@ -1,6 +1,6 @@
 "use client";
 import { format, set } from "date-fns";
-import { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -30,7 +30,7 @@ export const useDatePicker = ({
       setDate(d);
       onChange(d);
     },
-    [onChange],
+    [onChange]
   );
 
   const component = useCallback(
@@ -69,7 +69,7 @@ export const useDatePicker = ({
         showTwoColumnMonthYearPicker
       />
     ),
-    [date, handleSetDate],
+    [date, handleSetDate]
   );
 
   return {
