@@ -37,7 +37,6 @@ export const TimeZone = [
   "+13:00",
   "+13:45",
   "+14:00",
-  "+14:00",
 ] as const;
 export type TimeZone = (typeof TimeZone)[number];
 
