@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint --ext .ts,.tsx src",
     "type-check": "npx tsc --noEmit",
     "build": "ts-node ./scripts/parse.ts"
   },
