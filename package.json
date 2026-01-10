@@ -1,6 +1,6 @@
 {
   "name": "manual-auto-flight-mail",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "cd packages/manual-auto-flight-mail-app && pnpm dev",
@@ -12,12 +12,9 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,json,md,html}'"
   },
   "devDependencies": {
-    "eslint": "8.49.0",
+    "eslint": "9.39.2",
     "prettier": "^3.2.4",
     "turbo": "^1.11.3",
     "typescript": "5.3.3"
-  },
-  "volta": {
-    "node": "20.10.0"
   }
 }

@@ -1,6 +1,3 @@
-/**
- * @description: 机场三字码
- */
 export const AirportIATACode = [
   "AAA",
   "AAB",
@@ -8918,14 +8915,8 @@ export const AirportIATACode = [
   "ZZV",
 ] as const;
 
-/**
- * IATA airport codes
- */
 export type AirportIATACode = (typeof AirportIATACode)[number];
 
-/**
- * Map of airport IATA codes to airport names
- */
 export const airportNameMap: Record<AirportIATACode, string> = {
   AAA: "Anaa Airport",
   AAB: "Arrabury Airport",

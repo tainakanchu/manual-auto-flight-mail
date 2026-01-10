@@ -8,8 +8,5 @@
   },
   "dependencies": {
     "manual-auto-flight-mail-interface": "*"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

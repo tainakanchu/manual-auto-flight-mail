@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
 const api = "/api/airline-name";
+const unknownAirlineInfo = {
+  airlineName: "Unknown Airline",
+  isLoading: false,
+} as const;
 
 /**
  * AirLineIATACode と AirLineName を返す
@@ -18,45 +22,56 @@ export const useAirline = (
     } => {
   const [airlineInfo, setAirlineInfo] = useState<{
     airlineName: string;
-    isLoading: boolean;
+    iata: string | null;
   }>({
-    airlineName: "Unknown Airline",
-    isLoading: false,
+    airlineName: unknownAirlineInfo.airlineName,
+    iata: null,
   });
+  const isValidIata = airlineIATACode.length === 2;
 
   // 桁数が2桁で大文字の場合は、 API経由で取得する
   useEffect(() => {
     // IATA 航空会社は必ず2桁の大文字である。そうでない場合は unknown とする
-    if (airlineIATACode.length !== 2) {
-      setAirlineInfo({
-        airlineName: "Unknown Airline",
-        isLoading: false,
-      });
+    if (!isValidIata) {
       return;
     }
 
     const url = `${api}?iata=${airlineIATACode}`;
 
-    setAirlineInfo({
-      airlineName: "loading...",
-      isLoading: true,
-    });
-
+    let isActive = true;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
+        if (!isActive) {
+          return;
+        }
         setAirlineInfo({
           airlineName: json.airlineName,
-          isLoading: false,
+          iata: airlineIATACode,
         });
       })
-      .catch((e) => {
+      .catch(() => {
+        if (!isActive) {
+          return;
+        }
         setAirlineInfo({
-          airlineName: "Unknown Airline",
-          isLoading: false,
+          airlineName: unknownAirlineInfo.airlineName,
+          iata: airlineIATACode,
         });
       });
-  }, [airlineIATACode]);
+    return () => {
+      isActive = false;
+    };
+  }, [airlineIATACode, isValidIata]);
 
-  return airlineInfo;
+  if (!isValidIata) {
+    return unknownAirlineInfo;
+  }
+
+  const isLoading = airlineInfo.iata !== airlineIATACode;
+
+  return {
+    airlineName: isLoading ? "loading..." : airlineInfo.airlineName,
+    isLoading,
+  };
 };

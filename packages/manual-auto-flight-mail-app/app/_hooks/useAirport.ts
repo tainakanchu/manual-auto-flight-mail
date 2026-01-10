@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
 const api = "/api/airport-name";
+const unknownAirportInfo = {
+  airportName: "Unknown Airport",
+  isLoading: false,
+} as const;
 
 export const useAirport = (
   airportIATACode: string,
@@ -15,45 +19,56 @@ export const useAirport = (
     } => {
   const [airportInfo, setAirportInfo] = useState<{
     airportName: string;
-    isLoading: boolean;
+    iata: string | null;
   }>({
-    airportName: "Unknown Airport",
-    isLoading: false,
+    airportName: unknownAirportInfo.airportName,
+    iata: null,
   });
+  const isValidIata = airportIATACode.length === 3;
 
   // 桁数が3桁で大文字の場合は、 API経由で取得する
   useEffect(() => {
     // IATA 空港コードは必ず3桁の大文字である。そうでない場合は unknown とする
-    if (airportIATACode.length !== 3) {
-      setAirportInfo({
-        airportName: "Unknown Airport",
-        isLoading: false,
-      });
+    if (!isValidIata) {
       return;
     }
 
     const url = `${api}?iata=${airportIATACode}`;
 
-    setAirportInfo({
-      airportName: "loading...",
-      isLoading: true,
-    });
-
+    let isActive = true;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
+        if (!isActive) {
+          return;
+        }
         setAirportInfo({
           airportName: json.airportName,
-          isLoading: false,
+          iata: airportIATACode,
         });
       })
-      .catch((e) => {
+      .catch(() => {
+        if (!isActive) {
+          return;
+        }
         setAirportInfo({
-          airportName: "Unknown Airport",
-          isLoading: false,
+          airportName: unknownAirportInfo.airportName,
+          iata: airportIATACode,
         });
       });
-  }, [airportIATACode]);
+    return () => {
+      isActive = false;
+    };
+  }, [airportIATACode, isValidIata]);
 
-  return airportInfo;
+  if (!isValidIata) {
+    return unknownAirportInfo;
+  }
+
+  const isLoading = airportInfo.iata !== airportIATACode;
+
+  return {
+    airportName: isLoading ? "loading..." : airportInfo.airportName,
+    isLoading,
+  };
 };
