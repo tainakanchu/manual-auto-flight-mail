@@ -12,8 +12,5 @@
     "@google/clasp": "^2.4.2",
     "@types/google-apps-script": "^1.0.78",
     "dotenv": "^16.4.5"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }

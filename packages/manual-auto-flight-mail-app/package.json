@@ -27,8 +27,5 @@
     "autoprefixer": "10.4.15",
     "eslint-config-next": "16.1.1",
     "postcss": "8.4.29"
-  },
-  "volta": {
-    "extends": "../../package.json"
   }
 }
